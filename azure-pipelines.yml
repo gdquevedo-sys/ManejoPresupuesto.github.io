@@ -51,7 +51,7 @@ stages:
         command: 'publish'
         projects: '$(proyectoMVC)'
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/webapp'
-        zipAfterPublish: false
+        zipAfterPublish: true
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publicando artefactos'
@@ -76,7 +76,7 @@ stages:
       inputs:
         azureSubscription: 'ManejoPresupuesto'   # Nombre exacto del Service Connection
         appName: 'ManejoPresupuesto20260316191310'
-        package: '$(Pipeline.Workspace)/drop/webapp'
+        package: '$(Pipeline.Workspace)/drop/**/*.zip'
 
 
 
