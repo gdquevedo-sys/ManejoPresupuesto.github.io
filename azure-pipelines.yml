@@ -77,3 +77,6 @@ stages:
         azureSubscription: 'ManejoPresupuesto'   # Nombre exacto del Service Connection
         appName: 'ManejoPresupuesto20260316191310'
         package: '$(Pipeline.Workspace)/drop/**/*.zip'
+
+
+
