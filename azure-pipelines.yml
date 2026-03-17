@@ -23,7 +23,6 @@ stages:
 
     - task: NuGetToolInstaller@1
 
-    # Autenticación para feeds privados y públicos
     - task: NuGetAuthenticate@1
 
     - task: NuGetCommand@2
@@ -74,9 +73,17 @@ stages:
     - task: AzureWebApp@1
       displayName: 'Desplegar en Azure App Service'
       inputs:
-        azureSubscription: 'ManejoPresupuesto'   # Nombre exacto del Service Connection
+        azureSubscription: 'ManejoPresupuesto'
         appName: 'ManejoPresupuesto20260316191310'
         package: '$(Pipeline.Workspace)/drop/**/*.zip'
 
-
-
+    - task: SqlAzureDacpacDeployment@1
+      displayName: 'Desplegar base de datos en Azure SQL'
+      inputs:
+        azureSubscription: 'ManejoPresupuesto'
+        ServerName: 'manejopresupuestodbserver123.database.windows.net'
+        DatabaseName: 'ManejoPresupuesto_db'
+        SqlUsername: 'ManejoPresupuestoApp'
+        SqlPassword: 'tu_password'
+        DacpacFile: '$(Pipeline.Workspace)/drop/db/DB.dacpac'
+        DeployOptions: '/p:BlockOnPossibleDataLoss=false'
